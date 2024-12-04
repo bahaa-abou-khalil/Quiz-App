@@ -1,5 +1,5 @@
 import {BrowserRouter, Route, Routes} from "react-router-dom"
-import Quiz from "./pages/Quiz";
+import QuizList from "./pages/QuizList";
 import './styles/pages/base/colors.css'
 import './styles/pages/base/utilities.css'
 import './styles/pages/base/base.css'
@@ -10,7 +10,7 @@ const App = () => {
     <div className="app white-bg">
       <BrowserRouter>
         <Routes>
-          <Route path="/" element={<Quiz />}/>
+          <Route path="/" element={<QuizList />}/>
         </Routes>
       </BrowserRouter>
     </div>
