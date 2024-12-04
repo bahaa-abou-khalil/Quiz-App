@@ -87,7 +87,7 @@ const Quiz = () => {
     return (
         <div className="quiz flex column">
             {questions.map(question => (
-                <div className="question-container" key={question.id}>
+                <div className="question-container primary-bg" key={question.id}>
                     <p className="question">{question.question}</p>
                     <div className="answer">
                         {question.type === "input" && (
