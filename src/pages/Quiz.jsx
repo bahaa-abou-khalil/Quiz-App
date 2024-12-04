@@ -24,6 +24,19 @@ const questions = [
 ];
 
 const Quiz = () => {
+    const [answers, setAnswers] = useState({});
+    const [score, setScore] = useState(0);
+
+    const handleChange = (questionId, value, type) => {
+        if (type === "checkbox") {
+            setAnswers(prev => ({
+                ...prev,
+                [questionId]: prev[questionId] ? [...prev[questionId], value] : [value]
+            }));
+        } else {
+            setAnswers(prev => ({ ...prev, [questionId]: value }));
+        }
+    };
 
 
     return (
