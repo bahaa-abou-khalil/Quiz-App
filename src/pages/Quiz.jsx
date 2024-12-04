@@ -1,4 +1,4 @@
-import React from "react";
+import React, {useState} from "react";
 
 const questions = [
     {
@@ -27,6 +27,30 @@ const Quiz = () => {
     const [answers, setAnswers] = useState({});
     const [score, setScore] = useState(0);
 
+    const questions = [
+        {
+            id: 1,
+            question: "Explain dictionaries data structure",
+            type: "input",
+            correctAnswer: "A collection of key value pairs"
+        },
+        {
+            id: 2,
+            question: "What is the output of [ print(2 ** 3) ]?",
+            type: "radio",
+            options: ["6", "8", "9"],
+            correctAnswer: "8"
+        },
+        {
+            id: 3,
+            question: "Which of the following are python data types?",
+            type: "checkbox",
+            options: ["string", "Array", "Tuple"],
+            correctAnswer: ["string", "Tuple"]
+        }
+    ];
+    
+
     const handleChange = (questionId, value, type) => {
         if (type === "checkbox") {
             setAnswers(prev => ({
@@ -41,48 +65,51 @@ const Quiz = () => {
 
     return (
         <div className="quiz flex column">
-            <div className="question-container column flex" key={"question-1"}>
-                <p className="question">Explain dictionaries data structure</p>
-                <div className="answer">
-                    <input type="text" placeholder="Your answer here" />
+            {questions.map(question => (
+                <div className="question-container" key={question.id}>
+                    <p className="question">{question.question}</p>
+                    <div className="answer">
+                        {question.type === "input" && (
+                            <input
+                                type="text"
+                                onChange={e =>
+                                    handleChange(question.id, e.target.value, question.type)
+                                }
+                            />
+                        )}
+                        {question.type === "radio" &&
+                            question.options.map((option, index) => (
+                                <div key={index}>
+                                    <input
+                                        type="radio"
+                                        id={`q${question.id}-option${index}`}
+                                        name={`q${question.id}`}
+                                        value={option}
+                                        onChange={e =>
+                                            handleChange(question.id, e.target.value, question.type)
+                                        }
+                                    />
+                                    <span>{option}</span>
+                                </div>
+                            ))}
+                        {question.type === "checkbox" &&
+                            question.options.map((option, index) => (
+                                <div key={index}>
+                                    <input
+                                        type="checkbox"
+                                        id={`q${question.id}-option${index}`}
+                                        value={option}
+                                        onChange={e =>
+                                            handleChange(question.id, e.target.value, question.type)
+                                        }
+                                    />
+                                    <span>{option}</span>
+                                </div>
+                            ))}
+                    </div>
                 </div>
-            </div>
+            ))}
 
-            <div className="question-container column flex" key={"question-2"}>
-                <p className="question">What is the output of [ print(2 ** 3) ]?</p>
-                <div className="answer">
-                    <div>
-                        <input type="radio" id="option1" name="question2" value="6" />
-                        <label htmlFor="option1">6</label>
-                    </div>
-                    <div>
-                        <input type="radio" id="option2" name="question2" value="8" />
-                        <label htmlFor="option2">8</label>
-                    </div>
-                    <div>
-                        <input type="radio" id="option3" name="question2" value="9" />
-                        <label htmlFor="option3">9</label>
-                    </div>
-                </div>
-            </div>
-
-            <div className="question-container column flex" key={"question-3"}>
-                <p className="question">Which of the following are valid Python data types? [ String - Array - Tuple]</p>
-                <div className="answer">
-                    <div>
-                        <input type="checkbox" id="option1-q3" name="question3" value="String" />
-                        <label htmlFor="option1-q3">String</label>
-                    </div>
-                    <div>
-                        <input type="checkbox" id="option2-q3" name="question3" value="Array" />
-                        <label htmlFor="option2-q3">Array</label>
-                    </div>
-                    <div>
-                        <input type="checkbox" id="option3-q3" name="question3" value="Tuple" />
-                        <label htmlFor="option3-q3">Tuple</label>
-                    </div>
-                </div>
-            </div>
         </div>
     );
 };
