@@ -62,6 +62,27 @@ const Quiz = () => {
         }
     };
 
+    const handleSubmit = () => {
+        let calculatedScore = 0;
+
+        questions.forEach(question => {
+            const userAnswer = answers[question.id];
+            const correctAnswer = question.correctAnswer;
+
+            if (question.type === "checkbox") {
+                if (
+                    Array.isArray(userAnswer) &&
+                    correctAnswer.every(answer => userAnswer.includes(answer))
+                ) {
+                    calculatedScore += 1;
+                }
+            } else if (userAnswer === correctAnswer) {
+                calculatedScore += 1;
+            }
+        });
+
+        setScore(calculatedScore);
+    };
 
     return (
         <div className="quiz flex column">
@@ -109,7 +130,10 @@ const Quiz = () => {
                     </div>
                 </div>
             ))}
-
+            <button className="filled-btn primary-bg black-txt"  onClick={handleSubmit}>
+                Submit Quiz
+            </button>
+            <p>Your Score: {score}</p>
         </div>
     );
 };
