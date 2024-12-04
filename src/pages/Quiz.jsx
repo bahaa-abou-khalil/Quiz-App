@@ -1,4 +1,5 @@
-import React, {useState} from "react";
+import React, {useState, useContext} from "react";
+import { ScoreContext } from "./../contexts/ScoreContext";
 
 const questions = [
     {
@@ -27,6 +28,9 @@ const Quiz = () => {
     const [answers, setAnswers] = useState({});
     const [score, setScore] = useState(0);
 
+    const { accScore, setAccScore } = useContext(ScoreContext);
+
+    setAccScore((prevScore) => prevScore + score);
     const questions = [
         {
             id: 1,
@@ -134,6 +138,7 @@ const Quiz = () => {
                 Submit Quiz
             </button>
             <p>Your Score: {score}</p>
+            <p>Accumulated Score: {accScore}</p>
         </div>
     );
 };
