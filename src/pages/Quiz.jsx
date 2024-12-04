@@ -1,29 +1,6 @@
 import React, {useState, useContext} from "react";
 import { ScoreContext } from "./../contexts/ScoreContext";
 
-const questions = [
-    {
-        id: 1,
-        question: "Explain dictionaries data structure",
-        type: "input",
-        correctAnswer: "A collection of key value pairs"
-    },
-    {
-        id: 2,
-        question: "What is the output of [ print(2 ** 3) ]?",
-        type: "radio",
-        options: ["6", "8", "9"],
-        correctAnswer: "8"
-    },
-    {
-        id: 3,
-        question: "Which of the following are python data types?",
-        type: "checkbox",
-        options: ["string", "Array", "Tuple"],
-        correctAnswer: ["string", "Tuple"]
-    }
-];
-
 const Quiz = () => {
     const [answers, setAnswers] = useState({});
     const [score, setScore] = useState(0);
