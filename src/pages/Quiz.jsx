@@ -3,14 +3,14 @@ import React from "react";
 const Quiz = () => {
     return (
         <div className="quiz flex column">
-            <div className="question-container" key={"question-1"}>
+            <div className="question-container column flex" key={"question-1"}>
                 <p className="question">Explain dictionaries data structure</p>
                 <div className="answer">
                     <input type="text" placeholder="Your answer here" />
                 </div>
             </div>
 
-            <div className="question-container" key={"question-2"}>
+            <div className="question-container column flex" key={"question-2"}>
                 <p className="question">What is the output of [ print(2 ** 3) ]?</p>
                 <div className="answer">
                     <div>
@@ -28,7 +28,7 @@ const Quiz = () => {
                 </div>
             </div>
 
-            <div className="question-container" key={"question-3"}>
+            <div className="question-container column flex" key={"question-3"}>
                 <p className="question">Which of the following are valid Python data types? [ String - Array - Tuple]</p>
                 <div className="answer">
                     <div>

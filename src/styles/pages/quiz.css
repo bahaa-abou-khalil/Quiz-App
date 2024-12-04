@@ -5,3 +5,8 @@
     gap: 20px;
     align-items: center;
 }
+
+.question-container{
+    width: 500px;
+    height: 100px;
+}
