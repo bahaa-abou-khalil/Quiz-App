@@ -7,7 +7,7 @@ import './styles/pages/quiz.css'
 import './styles/components/quizCard.css'
 const App = () => {
   return (
-    <div>
+    <div className="app white-bg">
       <BrowserRouter>
         <Routes>
           <Route path="/" element={<Quiz />}/>
