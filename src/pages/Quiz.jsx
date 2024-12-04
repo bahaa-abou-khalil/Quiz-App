@@ -1,8 +1,11 @@
 import React from "react";
+import QuizCard from "../components/QuizCard";
 
 const Quiz = () => {
     return (
-        <div>Quiz</div>
+        <div className="quiz-page flex column center">
+            <QuizCard />
+        </div>
     )
 }
 
