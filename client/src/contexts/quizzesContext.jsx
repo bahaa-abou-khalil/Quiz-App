@@ -7,15 +7,19 @@ const QuizzesProvider = ({ children }) => {
   const [accScore, setAccScore] = useState(0);
   const [quizzes, setQuizzes] = useState([]);
 
-  const getQuizzes = () => {
+
+  const getQuizzes = ()=>{
     axios.get("http://localhost:8080/quizzes/")
-    .then((res)=>{
-      setQuizzes(res.data)
+    .then((res) => {
+      setQuizzes(res.data);
     })
+    .catch((err) => {
+      console.error("error fetching the quizzes: ", err);
+    });
   }
 
   useEffect(()=>{
-    getQuizzes();
+    getQuizzes()
   },[])
 
   return (
