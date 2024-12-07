@@ -1,5 +1,5 @@
 import React, { createContext, useEffect, useState } from "react";
-import axios from "axios"
+import axios from "axios";
 
 export const QuizzesContext = createContext();
 
@@ -8,36 +8,36 @@ const QuizzesProvider = ({ children }) => {
   const [quizzes, setQuizzes] = useState([]);
   const [questions, setQuestions] = useState([]);
 
-
-  const getQuizzes = ()=>{
+  const getQuizzes = () => {
     axios.get("http://localhost:8080/quizzes/")
-    .then((res) => {
-      setQuizzes(res.data);
-    })
-    .catch((err) => {
-      console.error("error fetching the quizzes: ", err);
-    });
-  }
+      .then((res) => {
+        setQuizzes(res.data);
+      })
+      .catch((err) => {
+        console.error("Error fetching the quizzes: ", err);
+      });
+  };
 
-  const getQuestions = (quizId)=>{
+  const getQuestions = (quizId) => {
     axios.get(`http://localhost:8080/quizzes/${quizId}`)
-    .then((res) => {
-      setQuestions(res.data);
-    })
-    .catch((err) => {
-      console.error("error fetching the questions: ", err);
-    });
-  }
+      .then((res) => {
+        setQuestions(res.data);
+      })
+      .catch((err) => {
+        console.error("Error fetching the questions: ", err);
+      });
+  };
 
-  useEffect(()=>{
-    getQuizzes()
-  },[])
+  useEffect(() => {
+    getQuizzes();
+  }, []);
 
   return (
     <QuizzesContext.Provider value={{
-       accScore, setAccScore,
-       quizzes,
-       getQuestions
+      accScore, setAccScore,
+      quizzes,
+      getQuestions,
+      questions
     }}>
       {children}
     </QuizzesContext.Provider>
