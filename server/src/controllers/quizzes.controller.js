@@ -25,19 +25,20 @@ export const getQuizzes = async (req,res)=>{
 }
 
 export const createQuiz = async (req,res)=>{
-    const quizzes = req.body;
-    // const {question, options, answer, score} = req.body;
-
+    const { title, questions } = req.body;
     try{
-        if (!Array.isArray(quizzes) || quizzes.length === 0) {
+        if (!title || !questions || questions.length === 0) {
+
             return res.status(500).send({
                 message: "All feilds are required",
-              });
+            });
         }
 
-        const createdQuizzes = await Quiz.insertMany(quizzes);
+            const quiz = await Quiz.create({
+                title, questions
+            })
 
-        return res.json(createdQuizzes);
+            return res.json(quiz);
     }
     catch(error){
         console.error("error creating quiz: ", error);
