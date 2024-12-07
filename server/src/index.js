@@ -8,7 +8,7 @@ const app = express();
 app.use(express.json());
 
 app.use("/users",userRoutes);
-app.use("/quizes",quizRoutes);
+app.use("/quizzes",quizRoutes);
 
 app.listen(8080, async () => {
   console.log("Server running on port 8080");
