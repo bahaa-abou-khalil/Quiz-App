@@ -4,118 +4,67 @@ import { QuizzesContext } from "../contexts/quizzesContext";
 const Quiz = () => {
     const [answers, setAnswers] = useState({});
     const [score, setScore] = useState(0);
-
-    const { accScore, setAccScore } = useContext(QuizzesContext);
-
-    setAccScore((prevScore) => prevScore + score);
-    const questions = [
-        {
-            id: 1,
-            question: "Explain dictionaries data structure",
-            type: "input",
-            correctAnswer: "A collection of key value pairs"
-        },
-        {
-            id: 2,
-            question: "What is the output of [ print(2 ** 3) ]?",
-            type: "radio",
-            options: ["6", "8", "9"],
-            correctAnswer: "8"
-        },
-        {
-            id: 3,
-            question: "Which of the following are python data types?",
-            type: "checkbox",
-            options: ["string", "Array", "Tuple"],
-            correctAnswer: ["string", "Tuple"]
-        }
-    ];
+    const [selectedOption, setSelectedOption] = useState("");
     
-
-    const handleChange = (questionId, value, type) => {
-        if (type === "checkbox") {
-            setAnswers(prev => ({
-                ...prev,
-                [questionId]: prev[questionId] ? [...prev[questionId], value] : [value]
-            }));
-        } else {
-            setAnswers(prev => ({ ...prev, [questionId]: value }));
-        }
+    const handleChange = (event) => {
+      setSelectedOption(event.target.value);
     };
 
-    const handleSubmit = () => {
-        let calculatedScore = 0;
+    const listQuizzes=()=>{
 
-        questions.forEach(question => {
-            const userAnswer = answers[question.id];
-            const correctAnswer = question.correctAnswer;
-
-            if (question.type === "checkbox") {
-                if (
-                    Array.isArray(userAnswer) &&
-                    correctAnswer.every(answer => userAnswer.includes(answer))
-                ) {
-                    calculatedScore += 1;
-                }
-            } else if (userAnswer === correctAnswer) {
-                calculatedScore += 1;
-            }
-        });
-
-        setScore(calculatedScore);
-    };
+    }
 
     return (
         <div className="quiz flex column">
-            {questions.map(question => (
-                <div className="question-container primary-bg" key={question.id}>
-                    <p className="question">{question.question}</p>
-                    <div className="answer">
-                        {question.type === "input" && (
-                            <input
-                                type="text"
-                                onChange={e =>
-                                    handleChange(question.id, e.target.value, question.type)
-                                }
-                            />
-                        )}
-                        {question.type === "radio" &&
-                            question.options.map((option, index) => (
-                                <div key={index}>
-                                    <input
-                                        type="radio"
-                                        id={`q${question.id}-option${index}`}
-                                        name={`q${question.id}`}
-                                        value={option}
-                                        onChange={e =>
-                                            handleChange(question.id, e.target.value, question.type)
-                                        }
-                                    />
-                                    <span>{option}</span>
-                                </div>
-                            ))}
-                        {question.type === "checkbox" &&
-                            question.options.map((option, index) => (
-                                <div key={index}>
-                                    <input
-                                        type="checkbox"
-                                        id={`q${question.id}-option${index}`}
-                                        value={option}
-                                        onChange={e =>
-                                            handleChange(question.id, e.target.value, question.type)
-                                        }
-                                    />
-                                    <span>{option}</span>
-                                </div>
-                            ))}
-                    </div>
-                </div>
-            ))}
-            <button className="filled-btn primary-bg black-txt"  onClick={handleSubmit}>
-                Submit Quiz
-            </button>
-            <p>Your Score: {score}</p>
-            <p>Accumulated Score: {accScore}</p>
+            <h3 className="black-txt">Qustion number</h3>
+            <div className="question-container primary-bg">
+                <p>What is the output of `print(2 + 3 * 4)` in Python?</p>
+            </div>
+            <div className="options-container flex column">
+                <label>
+                    <input
+                    type="radio"
+                    name="q1"
+                    value="a"
+                    checked={selectedOption === "a"}
+                    onChange={handleChange}
+                    />
+                    A
+                </label>
+                <label>
+                    <input
+                        type="radio"
+                        name="q1"
+                        value="b"
+                        checked={selectedOption === "b"}
+                        onChange={handleChange}
+                    />
+                    B
+                </label>
+                <label>
+                    <input
+                        type="radio"
+                        name="q1"
+                        value="c"
+                        checked={selectedOption === "c"}
+                        onChange={handleChange}
+                    />
+                    C
+                </label>
+                <label>
+                    <input
+                        type="radio"
+                        name="q1"
+                        value="d"
+                        checked={selectedOption === "d"}
+                        onChange={handleChange}
+                    />
+                    D
+                </label>
+
+                <p>Selected Option: {selectedOption}</p>
+            </div>
+
         </div>
     );
 };
