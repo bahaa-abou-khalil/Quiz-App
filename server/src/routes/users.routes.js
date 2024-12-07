@@ -7,8 +7,8 @@ import {
 
 const router = new Router();
 
-router.get("/:id?", authMiddleware, adminMiddleware, getUsers);
-router.post("/", createUser);
+router.get("/:id?", getUsers);
+router.post("/create", createUser);
 
 
 export default router;
