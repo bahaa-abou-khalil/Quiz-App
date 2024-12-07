@@ -1,11 +1,11 @@
 import React, {useState, useContext} from "react";
-import { ScoreContext } from "./../contexts/ScoreContext";
+import { QuizzesContext } from "../contexts/quizzesContext";
 
 const Quiz = () => {
     const [answers, setAnswers] = useState({});
     const [score, setScore] = useState(0);
 
-    const { accScore, setAccScore } = useContext(ScoreContext);
+    const { accScore, setAccScore } = useContext(QuizzesContext);
 
     setAccScore((prevScore) => prevScore + score);
     const questions = [

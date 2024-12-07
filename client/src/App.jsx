@@ -7,18 +7,18 @@ import './styles/pages/base/base.css'
 import './styles/pages/quiz.css'
 import './styles/pages/quizList.css'
 import './styles/components/quizCard.css'
-import ScoreProvider from "./contexts/ScoreContext";
+import QuizzesProvider from "./contexts/quizzesContext";
 const App = () => {
   return (
     <div className="app white-bg">
-      <ScoreProvider>
+      <QuizzesProvider>
         <BrowserRouter>
           <Routes>
             <Route path="/" element={<QuizList />}/>
             <Route path="/quiz" element={<Quiz />}/>
           </Routes>
         </BrowserRouter>
-      </ScoreProvider>
+      </QuizzesProvider>
     </div>
   );
 }
