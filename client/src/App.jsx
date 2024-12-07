@@ -15,7 +15,7 @@ const App = () => {
         <BrowserRouter>
           <Routes>
             <Route path="/" element={<QuizList />}/>
-            <Route path="/quiz" element={<Quiz />}/>
+            <Route path="/quiz/:quizid" element={<Quiz />}/>
           </Routes>
         </BrowserRouter>
       </QuizzesProvider>

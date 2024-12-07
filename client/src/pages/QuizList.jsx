@@ -6,14 +6,15 @@ import { QuizzesContext } from "./../contexts/quizzesContext";
 const Quiz = () => {
     const {quizzes} = useContext(QuizzesContext);
     const navigate = useNavigate();
+    console.log(quizzes);
     
     const quizzesList = quizzes.map(quiz=>(
-        <div className="quiz-card flex center column primary-bg black-txt">
-      <p>{quiz.title}</p>
-      <button className="filled-btn white-bg"
-      onClick={()=>navigate("/quiz")}
-      >Start QUiz</button>
-      </div>
+        <div className="quiz-card flex column primary-bg black-txt">
+            <p>{quiz.title}</p>
+            <button className="filled-btn white-bg"
+            onClick={()=>navigate(`/quiz/${quiz._id}`)}
+            >Start QUiz</button>
+        </div>
 
     ))
 
