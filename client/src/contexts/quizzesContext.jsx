@@ -6,6 +6,7 @@ export const QuizzesContext = createContext();
 const QuizzesProvider = ({ children }) => {
   const [accScore, setAccScore] = useState(0);
   const [quizzes, setQuizzes] = useState([]);
+  const [questions, setQuestions] = useState([]);
 
 
   const getQuizzes = ()=>{
@@ -18,6 +19,16 @@ const QuizzesProvider = ({ children }) => {
     });
   }
 
+  const getQuestions = (quizId)=>{
+    axios.get(`http://localhost:8080/quizzes/${quizId}`)
+    .then((res) => {
+      setQuestions(res.data);
+    })
+    .catch((err) => {
+      console.error("error fetching the questions: ", err);
+    });
+  }
+
   useEffect(()=>{
     getQuizzes()
   },[])
@@ -25,7 +36,8 @@ const QuizzesProvider = ({ children }) => {
   return (
     <QuizzesContext.Provider value={{
        accScore, setAccScore,
-       quizzes
+       quizzes,
+       getQuestions
     }}>
       {children}
     </QuizzesContext.Provider>
