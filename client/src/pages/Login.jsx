@@ -1,4 +1,5 @@
-import React, { useEffect } from "react"
+import React, { useEffect, useState } from "react"
+import axios from "axios"
 import { useNavigate } from "react-router-dom";
 import useForm from "../hooks/useForm";
 
@@ -8,6 +9,16 @@ const Login = ()=>{
         password:""
     })
     const navigate=useNavigate();
+    const [error, setError]=useState(false);
+
+    const handleSubmit=(data)=>{
+        axios.post("http://localhost:8080/auth/login",{data})
+        .then((res)=>{
+            if(res.data.message){
+                setError(!error);
+            }
+        })
+    }
 
     return(
         <div className="login-container primary-bg flex column center">
@@ -21,9 +32,14 @@ const Login = ()=>{
             value={form.password} 
             name="password"
             onChange={updateForm}
+            onClick={()=>handleSubmit(form)}
             />
+            {error && <p className="red-txt">unable to login</p>}
             <button className="filled-btn"
-            onClick={()=>navigate("/quizzes")}
+            onClick={()=>{
+                if(!error)
+                navigate("/quizzes")
+            }}
             >Submit</button>
             <button className="action-btn"
             onClick={()=>navigate("/register")}
