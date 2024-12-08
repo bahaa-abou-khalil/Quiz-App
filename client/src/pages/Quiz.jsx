@@ -2,6 +2,8 @@ import React, { useState, useContext, useEffect } from "react";
 import { QuizzesContext } from "../contexts/quizzesContext";
 import { useLocation } from "react-router-dom";
 
+import axios from "axios"
+
 const Quiz = () => {
   const location = useLocation();
   const [selectedOptions, setSelectedOptions] = useState({});
@@ -38,6 +40,20 @@ const Quiz = () => {
     setScore(totalScore);
   };
 
+  const postQuiz = ()=>{
+    axios.post("http://localhost:8080/userQuizzes",{
+          
+      quiz_id:quizId,
+      score:score
+    },
+    {
+      headers : {
+        Authorization : `Bearer ${localStorage.getItem("token")}`
+    }
+    }
+  )
+  }
+
   if (!questions || !questions.questions) {
     return <p>loading questions..</p>;
   }
@@ -72,7 +88,11 @@ const Quiz = () => {
     <div className="quizzes-container flex column">
       {score > 0 && <p className="score-display">Score: {score}</p>}
       {listQuestions()}
-      <button className="quiz-btn filled-btn primary-bg" onClick={handleSubmit}>
+      <button className="quiz-btn filled-btn primary-bg" 
+      onClick={()=>{
+        handleSubmit()
+        postQuiz()
+        }}>
         Submit
       </button>
       
