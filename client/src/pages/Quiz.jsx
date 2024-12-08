@@ -7,6 +7,7 @@ const Quiz = () => {
   const [selectedOptions, setSelectedOptions] = useState({});
   const { getQuestions, questions } = useContext(QuizzesContext);
   const quizId = location.pathname.split("/").pop();
+  const [score, setScore] = useState(0);
 
   useEffect(() => {
     getQuestions(quizId);
@@ -20,9 +21,25 @@ const Quiz = () => {
     }));
   };
 
+  const handleSubmit = () => {
+    let totalScore = 0;
+
+    if (!questions || !questions.questions) {
+      console.error("no questions");
+      return;
+    }
+
+    questions.questions.forEach((question, index) => {
+      if (selectedOptions[index] === question.answer) {
+        totalScore += question.score;
+      }
+    });
+
+    setScore(totalScore);
+  };
 
   if (!questions || !questions.questions) {
-    return <p>Loading questions..</p>;
+    return <p>loading questions..</p>;
   }
 
   const listQuestions = () => {
@@ -40,20 +57,25 @@ const Quiz = () => {
                 name={`q${index}`}
                 value={option}
                 checked={selectedOptions[index] === option}
-                onChange={(event) => handleChange(event, index)}/>
+                onChange={(event) => handleChange(event, index)}
+              />
               {option}
             </label>
           ))}
         </div>
         {selectedOptions[index] && <p className="dim-txt">Selected: {selectedOptions[index]}</p>}
-
       </div>
     ));
   };
 
   return (
     <div className="quizzes-container flex column">
+      {score > 0 && <p className="score-display">Score: {score}</p>}
       {listQuestions()}
+      <button className="quiz-btn filled-btn primary-bg" onClick={handleSubmit}>
+        Submit
+      </button>
+      
     </div>
   );
 };

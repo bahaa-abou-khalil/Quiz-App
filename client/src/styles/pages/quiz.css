@@ -21,3 +21,8 @@
     width: 100%;
     height: 100%;
 }
+.score-display{
+    font-size: 30px;
+    position: fixed;
+    z-index: 1000;
+}
