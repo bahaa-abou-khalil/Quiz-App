@@ -4,7 +4,7 @@ import { useLocation } from "react-router-dom";
 
 const Quiz = () => {
   const location = useLocation();
-  const [selectedOption, setSelectedOption] = useState("");
+  const [selectedOptions, setSelectedOptions] = useState({});
   const { getQuestions, questions } = useContext(QuizzesContext);
   const quizId = location.pathname.split("/").pop();
 
@@ -12,8 +12,12 @@ const Quiz = () => {
     getQuestions(quizId);
   }, [quizId]);
 
-  const handleChange = (event) => {
-    setSelectedOption(event.target.value);
+  const handleChange = (event, questionIndex) => {
+    const { value } = event.target;
+    setSelectedOptions((prev) => ({
+      ...prev,
+      [questionIndex]: value,
+    }));
   };
 
 
@@ -35,13 +39,14 @@ const Quiz = () => {
                 type="radio"
                 name={`q${index}`}
                 value={option}
-                checked={selectedOption === option}
-                onChange={handleChange}
-              />
+                checked={selectedOptions[index] === option}
+                onChange={(event) => handleChange(event, index)}/>
               {option}
             </label>
           ))}
         </div>
+        {selectedOptions[index] && <p className="dim-txt">Selected: {selectedOptions[index]}</p>}
+
       </div>
     ));
   };
