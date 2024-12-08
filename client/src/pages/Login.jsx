@@ -11,14 +11,21 @@ const Login = ()=>{
     const navigate=useNavigate();
     const [error, setError]=useState(false);
 
-    const handleSubmit=(data)=>{
-        axios.post("http://localhost:8080/auth/login",{data})
-        .then((res)=>{
-            if(res.data.message){
-                setError(!error);
-            }
+    const handleSubmit = (data)=>{
+        
+        axios.post("http://localhost:8080/auth/login", data)
+        .then((res) => {
+          if (res.data.message) {
+            setError(true);
+          }
+          else{
+            navigate("/quizzes")
+          }
         })
-    }
+        .catch(() => {
+          setError(true);
+        });
+      };
 
     return(
         <div className="login-container primary-bg flex column center">
@@ -32,14 +39,10 @@ const Login = ()=>{
             value={form.password} 
             name="password"
             onChange={updateForm}
-            onClick={()=>handleSubmit(form)}
             />
             {error && <p className="red-txt">unable to login</p>}
             <button className="filled-btn"
-            onClick={()=>{
-                if(!error)
-                navigate("/quizzes")
-            }}
+            onClick={()=>handleSubmit(form)}
             >Submit</button>
             <button className="action-btn"
             onClick={()=>navigate("/register")}
