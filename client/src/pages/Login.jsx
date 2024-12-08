@@ -19,6 +19,7 @@ const Login = ()=>{
             setError(true);
           }
           else{
+            localStorage.setItem("token",res.data.token)
             navigate("/quizzes")
           }
         })
@@ -52,7 +53,7 @@ const Login = ()=>{
             <button className="action-btn"
             onClick={()=>navigate("/register")}
             >Sign Up</button>
-            
+
         </div>
     )
 }
