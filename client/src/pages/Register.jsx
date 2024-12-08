@@ -1,17 +1,15 @@
-import React, { useEffect } from "react"
-import { useNavigate } from "react-router-dom";
-import useForm from "../hooks/useForm";
-
-const Login = ()=>{
-    const {form, updateForm} = useForm({
+import React from "react"
+import useForm from "../hooks/useForm"
+import { useNavigate } from "react-router-dom"
+const Register = ()=>{
+    const navigate=useNavigate();
+    const { form , updateForm } = useForm({
         username:"",
         password:""
     })
-    const navigate=useNavigate();
-
     return(
         <div className="login-container primary-bg flex column center">
-            <h3>Login</h3>
+            <h3>Register</h3>
             <input type="text" placeholder="username"
             value={form.username}
             name="username"
@@ -23,13 +21,10 @@ const Login = ()=>{
             onChange={updateForm}
             />
             <button className="filled-btn"
-            onClick={()=>navigate("/quizzes")}
+            onClick={()=>navigate("/")}
             >Submit</button>
-            <button className="action-btn"
-            onClick={()=>navigate("/register")}
-            >Sign Up</button>
         </div>
     )
 }
 
-export default Login;
+export default Register;
