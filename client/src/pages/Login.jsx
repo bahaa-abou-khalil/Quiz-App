@@ -30,23 +30,29 @@ const Login = ()=>{
     return(
         <div className="login-container primary-bg flex column center">
             <h3>Login</h3>
+
             <input type="text" placeholder="username"
             value={form.username}
             name="username"
             onChange={updateForm}
             />
+
             <input type="password" placeholder="password"
             value={form.password} 
             name="password"
             onChange={updateForm}
             />
+
             {error && <p className="red-txt">unable to login</p>}
+
             <button className="filled-btn"
             onClick={()=>handleSubmit(form)}
             >Submit</button>
+
             <button className="action-btn"
             onClick={()=>navigate("/register")}
             >Sign Up</button>
+            
         </div>
     )
 }
